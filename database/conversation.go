@@ -427,19 +427,43 @@ func (s *SQLConversationStore) GetConversationHistory(ctx context.Context, conve
 
 // SearchConversations searches conversations by content or title.
 func (s *SQLConversationStore) SearchConversations(ctx context.Context, userID, query string, limit int) ([]*Conversation, error) {
-	searchQuery := `
-		SELECT DISTINCT c.id, c.user_id, c.title, c.metadata, c.created_at, c.updated_at
-		FROM conversations c
-		LEFT JOIN messages m ON c.id = m.conversation_id
-		WHERE c.user_id = $1 AND (
-			c.title ILIKE $2 OR
-			m.content ILIKE $2
-		)
-		ORDER BY c.updated_at DESC
-		LIMIT $3`
+	// Use database-agnostic case-insensitive search
+	var searchQuery string
+	if s.driver == "postgres" {
+		searchQuery = `
+			SELECT DISTINCT c.id, c.user_id, c.title, c.metadata, c.created_at, c.updated_at
+			FROM conversations c
+			LEFT JOIN messages m ON c.id = m.conversation_id
+			WHERE c.user_id = $1 AND (
+				c.title ILIKE $2 OR
+				m.content ILIKE $2
+			)
+			ORDER BY c.updated_at DESC
+			LIMIT $3`
+	} else {
+		// SQLite and MySQL compatible syntax
+		searchQuery = `
+			SELECT DISTINCT c.id, c.user_id, c.title, c.metadata, c.created_at, c.updated_at
+			FROM conversations c
+			LEFT JOIN messages m ON c.id = m.conversation_id
+			WHERE c.user_id = ? AND (
+				LOWER(c.title) LIKE LOWER(?) OR
+				LOWER(m.content) LIKE LOWER(?)
+			)
+			ORDER BY c.updated_at DESC
+			LIMIT ?`
+	}
 
 	searchPattern := "%" + query + "%"
-	rows, err := s.db.QueryContext(ctx, searchQuery, userID, searchPattern, limit)
+
+	var rows *sql.Rows
+	var err error
+
+	if s.driver == "postgres" {
+		rows, err = s.db.QueryContext(ctx, searchQuery, userID, searchPattern, limit)
+	} else {
+		rows, err = s.db.QueryContext(ctx, searchQuery, userID, searchPattern, searchPattern, limit)
+	}
 	if err != nil {
 		return nil, fmt.Errorf("failed to search conversations: %w", err)
 	}

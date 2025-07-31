@@ -112,6 +112,131 @@ func TestValidate(t *testing.T) {
 			wantErr: true,
 			errType: ErrMissingAPIKey,
 		},
+		{
+			name: "anthropic without api key",
+			config: &Config{
+				Model:       "anthropic",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				Anthropic: AnthropicConfig{
+					APIKey: "",
+				},
+			},
+			wantErr: true,
+			errType: ErrMissingAPIKey,
+		},
+		{
+			name: "gemini without api key",
+			config: &Config{
+				Model:       "gemini",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				Gemini: GeminiConfig{
+					APIKey: "",
+				},
+			},
+			wantErr: true,
+			errType: ErrMissingAPIKey,
+		},
+		{
+			name: "xai without api key",
+			config: &Config{
+				Model:       "xai",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				XAI: XAIConfig{
+					APIKey: "",
+				},
+			},
+			wantErr: true,
+			errType: ErrMissingAPIKey,
+		},
+		{
+			name: "meta without api key",
+			config: &Config{
+				Model:       "meta",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				Meta: MetaConfig{
+					APIKey: "",
+				},
+			},
+			wantErr: true,
+			errType: ErrMissingAPIKey,
+		},
+		{
+			name: "ollama without endpoint",
+			config: &Config{
+				Model:       "ollama",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				Ollama: OllamaConfig{
+					Endpoint: "",
+				},
+			},
+			wantErr: true,
+			errType: ErrMissingEndpoint,
+		},
+		{
+			name: "unsupported model",
+			config: &Config{
+				Model:       "unknown-model",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+			},
+			wantErr: true,
+			errType: ErrUnsupportedModel,
+		},
+		{
+			name: "valid anthropic config",
+			config: &Config{
+				Model:       "anthropic",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.7,
+				Anthropic: AnthropicConfig{
+					APIKey: "test-key",
+				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid temperature boundary low",
+			config: &Config{
+				Model:       "free",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 0.0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "valid temperature boundary high",
+			config: &Config{
+				Model:       "free",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: 2.0,
+			},
+			wantErr: false,
+		},
+		{
+			name: "invalid temperature too low",
+			config: &Config{
+				Model:       "free",
+				Timeout:     30 * time.Second,
+				MaxTokens:   256,
+				Temperature: -0.1,
+			},
+			wantErr: true,
+			errType: ErrInvalidTemperature,
+		},
 	}
 
 	for _, tt := range tests {
@@ -161,6 +286,23 @@ func TestGetEnvHelpers(t *testing.T) {
 
 		result = getBoolEnv("NON_EXISTENT", false)
 		assert.False(t, result)
+	})
+
+	t.Run("getFloatEnv", func(t *testing.T) {
+		os.Setenv("TEST_FLOAT", "3.14")
+		defer os.Unsetenv("TEST_FLOAT")
+
+		result := getFloatEnv("TEST_FLOAT", 0.0)
+		assert.Equal(t, 3.14, result)
+
+		result = getFloatEnv("NON_EXISTENT", 2.5)
+		assert.Equal(t, 2.5, result)
+
+		// Test invalid float value
+		os.Setenv("INVALID_FLOAT", "not-a-number")
+		defer os.Unsetenv("INVALID_FLOAT")
+		result = getFloatEnv("INVALID_FLOAT", 1.0)
+		assert.Equal(t, 1.0, result) // Should return default on parse error
 	})
 
 	t.Run("getDurationEnv", func(t *testing.T) {
