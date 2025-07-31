@@ -164,6 +164,45 @@ func TestHTTPHandlerHealth(t *testing.T) {
 	}
 }
 
+func TestHTTPHandlerHealth_UnhealthyModel(t *testing.T) {
+	// Create a chatbot with an invalid OpenAI config to trigger health failure
+	chatbot, err := New(&config.Config{
+		Model: "openai",
+		OpenAI: config.OpenAIConfig{
+			APIKey: "invalid-key",
+			Model:  "gpt-3.5-turbo",
+		},
+	})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("GET", "/health", nil)
+	w := httptest.NewRecorder()
+
+	handler.Health(w, req)
+
+	if w.Code != http.StatusServiceUnavailable {
+		t.Errorf("Expected status %d for unhealthy model, got %d", http.StatusServiceUnavailable, w.Code)
+	}
+
+	var response map[string]interface{}
+	if err := json.Unmarshal(w.Body.Bytes(), &response); err != nil {
+		t.Errorf("Failed to unmarshal response: %v", err)
+		return
+	}
+
+	if response["status"] != "unhealthy" {
+		t.Errorf("Expected status 'unhealthy', got %v", response["status"])
+	}
+
+	if response["error"] == nil {
+		t.Error("Expected error field to be present")
+	}
+}
+
 func TestHTTPHandlerGetClientIP(t *testing.T) {
 	chatbot, err := New(&config.Config{Model: "free"})
 	if err != nil {
@@ -270,6 +309,104 @@ func TestChatbotHandleStreamHTTP(t *testing.T) {
 	// For the free model, it should return a regular response
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d, got %d", http.StatusOK, w.Code)
+	}
+}
+
+func TestHandleStreamHTTP_OPTIONS(t *testing.T) {
+	chatbot, err := New(&config.Config{Model: "free"})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("OPTIONS", "/stream", nil)
+	w := httptest.NewRecorder()
+
+	handler.HandleStreamHTTP(w, req)
+
+	if w.Code != http.StatusOK {
+		t.Errorf("Expected status %d for OPTIONS, got %d", http.StatusOK, w.Code)
+	}
+
+	// Check CORS headers
+	if w.Header().Get("Access-Control-Allow-Origin") != "*" {
+		t.Error("Expected CORS header Access-Control-Allow-Origin to be *")
+	}
+}
+
+func TestHandleStreamHTTP_MethodNotAllowed(t *testing.T) {
+	chatbot, err := New(&config.Config{Model: "free"})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("GET", "/stream", nil)
+	w := httptest.NewRecorder()
+
+	handler.HandleStreamHTTP(w, req)
+
+	if w.Code != http.StatusMethodNotAllowed {
+		t.Errorf("Expected status %d for GET, got %d", http.StatusMethodNotAllowed, w.Code)
+	}
+}
+
+func TestHandleStreamHTTP_InvalidJSON(t *testing.T) {
+	chatbot, err := New(&config.Config{Model: "free"})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("POST", "/stream", strings.NewReader(`invalid json`))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	handler.HandleStreamHTTP(w, req)
+
+	if w.Code != http.StatusBadRequest {
+		t.Errorf("Expected status %d for invalid JSON, got %d", http.StatusBadRequest, w.Code)
+	}
+}
+
+func TestHandleStreamHTTP_EmptyMessage(t *testing.T) {
+	chatbot, err := New(&config.Config{Model: "free"})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("POST", "/stream", strings.NewReader(`{"message": ""}`))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	handler.HandleStreamHTTP(w, req)
+
+	if w.Code != http.StatusBadRequest {
+		t.Errorf("Expected status %d for empty message, got %d", http.StatusBadRequest, w.Code)
+	}
+}
+
+func TestHandleStreamHTTP_WhitespaceMessage(t *testing.T) {
+	chatbot, err := New(&config.Config{Model: "free"})
+	if err != nil {
+		t.Fatalf("Failed to create chatbot: %v", err)
+	}
+
+	handler := NewHTTPHandler(chatbot)
+
+	req := httptest.NewRequest("POST", "/stream", strings.NewReader(`{"message": "   "}`))
+	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+
+	handler.HandleStreamHTTP(w, req)
+
+	if w.Code != http.StatusBadRequest {
+		t.Errorf("Expected status %d for whitespace message, got %d", http.StatusBadRequest, w.Code)
 	}
 }
 

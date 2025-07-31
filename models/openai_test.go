@@ -2,6 +2,9 @@ package models
 
 import (
 	"context"
+	"net/http"
+	"net/http/httptest"
+	"strings"
 	"testing"
 	"time"
 
@@ -131,6 +134,141 @@ func TestOpenAIModel_AskStream_InvalidKey(t *testing.T) {
 	}
 	if ch != nil {
 		t.Error("expected nil channel with error")
+	}
+}
+
+func TestOpenAIModel_AskStream_Success(t *testing.T) {
+	// Create a mock server for streaming
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" {
+			t.Errorf("Expected POST request, got %s", r.Method)
+		}
+
+		if r.Header.Get("Content-Type") != "application/json" {
+			t.Errorf("Expected Content-Type application/json")
+		}
+
+		authHeader := r.Header.Get("Authorization")
+		if authHeader != "Bearer test-key" {
+			t.Errorf("Expected Authorization header 'Bearer test-key', got '%s'", authHeader)
+		}
+
+		// Set SSE headers
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Header().Set("Cache-Control", "no-cache")
+		w.Header().Set("Connection", "keep-alive")
+
+		// Send streaming response chunks
+		chunks := []string{
+			`data: {"choices":[{"delta":{"content":"Hello"}}],"id":"chatcmpl-test"}`,
+			`data: {"choices":[{"delta":{"content":" world"}}],"id":"chatcmpl-test"}`,
+			`data: {"choices":[{"delta":{"content":"!"}}],"id":"chatcmpl-test"}`,
+			`data: [DONE]`,
+		}
+
+		for _, chunk := range chunks {
+			w.Write([]byte(chunk + "\n\n"))
+			if f, ok := w.(http.Flusher); ok {
+				f.Flush()
+			}
+			time.Sleep(10 * time.Millisecond)
+		}
+	}))
+	defer server.Close()
+
+	cfg := config.OpenAIConfig{
+		APIKey:   "test-key",
+		Model:    "gpt-3.5-turbo",
+		Endpoint: server.URL,
+	}
+
+	model, err := NewOpenAIModel(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create model: %v", err)
+	}
+
+	ctx := context.Background()
+	ch, err := model.AskStream(ctx, "Hello", nil)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	if ch == nil {
+		t.Fatal("Expected channel, got nil")
+	}
+
+	// Collect all chunks
+	var result strings.Builder
+	for chunk := range ch {
+		result.WriteString(chunk)
+	}
+
+	expected := "Hello world!"
+	if result.String() != expected {
+		t.Errorf("Expected '%s', got '%s'", expected, result.String())
+	}
+}
+
+func TestOpenAIModel_AskStream_ContextCancellation(t *testing.T) {
+	// Create a mock server with delay
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		time.Sleep(100 * time.Millisecond)
+		w.Header().Set("Content-Type", "text/event-stream")
+		w.Write([]byte(`data: {"choices":[{"delta":{"content":"test"}}]}`))
+	}))
+	defer server.Close()
+
+	cfg := config.OpenAIConfig{
+		APIKey:   "test-key",
+		Model:    "gpt-3.5-turbo",
+		Endpoint: server.URL,
+	}
+
+	model, err := NewOpenAIModel(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create model: %v", err)
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Millisecond)
+	defer cancel()
+
+	ch, err := model.AskStream(ctx, "Hello", nil)
+	if err == nil {
+		t.Fatal("Expected error for context cancellation")
+	}
+
+	if ch != nil {
+		t.Error("Expected nil channel with error")
+	}
+}
+
+func TestOpenAIModel_AskStream_HTTPError(t *testing.T) {
+	// Create a mock server that returns an error
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusInternalServerError)
+		w.Write([]byte("Internal Server Error"))
+	}))
+	defer server.Close()
+
+	cfg := config.OpenAIConfig{
+		APIKey:   "test-key",
+		Model:    "gpt-3.5-turbo",
+		Endpoint: server.URL,
+	}
+
+	model, err := NewOpenAIModel(cfg)
+	if err != nil {
+		t.Fatalf("Failed to create model: %v", err)
+	}
+
+	ctx := context.Background()
+	ch, err := model.AskStream(ctx, "Hello", nil)
+	if err == nil {
+		t.Fatal("Expected error for HTTP failure")
+	}
+
+	if ch != nil {
+		t.Error("Expected nil channel with error")
 	}
 }
 
