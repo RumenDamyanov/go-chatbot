@@ -96,11 +96,12 @@ func (a *EchoAdapter) HealthHandler() echo.HandlerFunc {
 
 		// Use the chatbot's health check method
 		if err := a.chatbot.Health(ctx); err != nil {
-			response.Status = "unhealthy"
+			response.Status = healthStatusUnhealthy
 			response.Error = err.Error()
 			return c.JSON(http.StatusServiceUnavailable, response)
 		}
 
+		response.Status = healthStatusHealthy
 		return c.JSON(http.StatusOK, response)
 	}
 }

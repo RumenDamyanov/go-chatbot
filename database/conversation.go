@@ -220,7 +220,15 @@ func (s *SQLConversationStore) DeleteConversation(ctx context.Context, id string
 	if err != nil {
 		return fmt.Errorf("failed to begin transaction: %w", err)
 	}
-	defer tx.Rollback()
+	defer func() {
+		if err := tx.Rollback(); err != nil {
+			// Ignore the specific error that occurs when transaction is already committed
+			expectedErr := "sql: transaction has already been committed or rolled back"
+			if err.Error() != expectedErr {
+				// Log the rollback error, but don't override the main error
+			}
+		}
+	}()
 
 	// Delete messages first (due to foreign key constraint)
 	_, err = tx.ExecContext(ctx, "DELETE FROM messages WHERE conversation_id = $1", id)

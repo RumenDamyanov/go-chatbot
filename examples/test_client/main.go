@@ -29,11 +29,11 @@ type ChatRequest struct {
 
 func main() {
 	baseURL := "http://localhost:8080"
-	
+
 	fmt.Println("🧪 Advanced Chatbot API Test Suite")
 	fmt.Println("===================================")
 	fmt.Println("")
-	
+
 	// Wait for server to be ready
 	fmt.Print("🔄 Checking if server is running... ")
 	if !waitForServer(baseURL, 5*time.Second) {
@@ -43,7 +43,7 @@ func main() {
 		os.Exit(1)
 	}
 	fmt.Println("✅")
-	
+
 	// Test cases
 	tests := []TestRequest{
 		{
@@ -52,15 +52,15 @@ func main() {
 			Expected: 200,
 		},
 		{
-			Method:   "GET", 
+			Method:   "GET",
 			URL:      baseURL + "/conversations",
 			Expected: 200,
 		},
 		{
-			Method:  "POST",
-			URL:     baseURL + "/conversations",
-			Headers: map[string]string{"Content-Type": "application/json"},
-			Body:    map[string]string{"title": "Test Conversation"},
+			Method:   "POST",
+			URL:      baseURL + "/conversations",
+			Headers:  map[string]string{"Content-Type": "application/json"},
+			Body:     map[string]string{"title": "Test Conversation"},
 			Expected: 200,
 		},
 		{
@@ -85,14 +85,14 @@ func main() {
 			Expected: 200,
 		},
 	}
-	
+
 	// Run tests
 	passed := 0
 	total := len(tests)
-	
+
 	for i, test := range tests {
 		fmt.Printf("🧪 Test %d/%d: %s %s\n", i+1, total, test.Method, test.URL)
-		
+
 		if runTest(test) {
 			fmt.Println("   ✅ PASS")
 			passed++
@@ -101,7 +101,7 @@ func main() {
 		}
 		fmt.Println("")
 	}
-	
+
 	// Summary
 	fmt.Println("📊 Test Results")
 	fmt.Println("===============")
@@ -116,7 +116,7 @@ func main() {
 func waitForServer(baseURL string, timeout time.Duration) bool {
 	client := &http.Client{Timeout: 1 * time.Second}
 	deadline := time.Now().Add(timeout)
-	
+
 	for time.Now().Before(deadline) {
 		resp, err := client.Get(baseURL + "/status")
 		if err == nil && resp.StatusCode == 200 {
@@ -133,7 +133,7 @@ func waitForServer(baseURL string, timeout time.Duration) bool {
 
 func runTest(test TestRequest) bool {
 	client := &http.Client{Timeout: 10 * time.Second}
-	
+
 	var body io.Reader
 	if test.Body != nil {
 		jsonBody, err := json.Marshal(test.Body)
@@ -143,28 +143,28 @@ func runTest(test TestRequest) bool {
 		}
 		body = bytes.NewBuffer(jsonBody)
 	}
-	
+
 	req, err := http.NewRequest(test.Method, test.URL, body)
 	if err != nil {
 		fmt.Printf("   Error creating request: %v\n", err)
 		return false
 	}
-	
+
 	// Add headers
 	for key, value := range test.Headers {
 		req.Header.Set(key, value)
 	}
-	
+
 	resp, err := client.Do(req)
 	if err != nil {
 		fmt.Printf("   Error making request: %v\n", err)
 		return false
 	}
 	defer resp.Body.Close()
-	
+
 	// Read response body for debugging
 	respBody, _ := io.ReadAll(resp.Body)
-	
+
 	if resp.StatusCode != test.Expected {
 		fmt.Printf("   Expected status %d, got %d\n", test.Expected, resp.StatusCode)
 		if len(respBody) > 0 && len(respBody) < 200 {
@@ -172,7 +172,7 @@ func runTest(test TestRequest) bool {
 		}
 		return false
 	}
-	
+
 	fmt.Printf("   Status: %d, Response length: %d bytes\n", resp.StatusCode, len(respBody))
 	return true
 }

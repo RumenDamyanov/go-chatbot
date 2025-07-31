@@ -10,6 +10,13 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
+// contextKey is a custom type for context keys to avoid collisions
+type contextKey string
+
+const (
+	chatbotContextKey contextKey = "chatbot"
+)
+
 // ChiAdapter wraps a chatbot for use with the Chi framework
 type ChiAdapter struct {
 	chatbot *gochatbot.Chatbot
@@ -138,7 +145,7 @@ func (adapter *ChiAdapter) SetupRoutesWithPrefix(r chi.Router, prefix string) {
 func (adapter *ChiAdapter) Middleware() func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ctx := context.WithValue(r.Context(), "chatbot", adapter.chatbot)
+			ctx := context.WithValue(r.Context(), chatbotContextKey, adapter.chatbot)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
@@ -146,6 +153,6 @@ func (adapter *ChiAdapter) Middleware() func(http.Handler) http.Handler {
 
 // GetChatbotFromChiContext retrieves the chatbot from a Chi request context
 func GetChatbotFromChiContext(r *http.Request) (*gochatbot.Chatbot, bool) {
-	chatbot, ok := r.Context().Value("chatbot").(*gochatbot.Chatbot)
+	chatbot, ok := r.Context().Value(chatbotContextKey).(*gochatbot.Chatbot)
 	return chatbot, ok
 }

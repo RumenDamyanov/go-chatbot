@@ -204,9 +204,9 @@ func (o *OllamaModel) Ask(ctx context.Context, message string, context map[strin
 	if resp.StatusCode != http.StatusOK {
 		var errResp ollamaError
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			return "", fmt.Errorf("Ollama API error: %s", errResp.Error)
+			return "", fmt.Errorf("ollama API error: %s", errResp.Error)
 		}
-		return "", fmt.Errorf("Ollama API error: status %d, body: %s", resp.StatusCode, string(body))
+		return "", fmt.Errorf("ollama API error: status %d, body: %s", resp.StatusCode, string(body))
 	}
 
 	// Parse the response
@@ -292,12 +292,12 @@ func (o *OllamaModel) Health(ctx context.Context) error {
 
 	resp, err := o.httpClient.Do(httpReq)
 	if err != nil {
-		return fmt.Errorf("Ollama health check failed - is Ollama running?: %w", err)
+		return fmt.Errorf("ollama health check failed - is Ollama running?: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("Ollama server error: %d", resp.StatusCode)
+		return fmt.Errorf("ollama server error: %d", resp.StatusCode)
 	}
 
 	// Check if the specific model is available
@@ -316,7 +316,7 @@ func (o *OllamaModel) Health(ctx context.Context) error {
 						return nil // Model is available
 					}
 				}
-				return fmt.Errorf("model '%s' not found in Ollama. Available models can be seen with 'ollama list'", o.config.Model)
+				return fmt.Errorf("model '%s' not found in ollama. Available models can be seen with 'ollama list'", o.config.Model)
 			}
 		}
 	}

@@ -103,7 +103,11 @@ func NewStreamProcessor(requestID string, handler *StreamHandler) *StreamProcess
 
 // ProcessChannel processes a channel of strings and streams them.
 func (sp *StreamProcessor) ProcessChannel(ctx context.Context, ch <-chan string) error {
-	defer sp.handler.WriteDone(sp.requestID)
+	defer func() {
+		if err := sp.handler.WriteDone(sp.requestID); err != nil {
+			// Log the error but don't return it as it's in defer
+		}
+	}()
 
 	for {
 		select {
@@ -129,7 +133,11 @@ func (sp *StreamProcessor) ProcessChannel(ctx context.Context, ch <-chan string)
 
 // ProcessOpenAIStream processes OpenAI streaming response format.
 func (sp *StreamProcessor) ProcessOpenAIStream(ctx context.Context, response *http.Response) error {
-	defer sp.handler.WriteDone(sp.requestID)
+	defer func() {
+		if err := sp.handler.WriteDone(sp.requestID); err != nil {
+			// Log the error but don't return it as it's in defer
+		}
+	}()
 	defer response.Body.Close()
 
 	scanner := bufio.NewScanner(response.Body)
@@ -187,7 +195,11 @@ func (sp *StreamProcessor) ProcessOpenAIStream(ctx context.Context, response *ht
 
 // ProcessAnthropicStream processes Anthropic streaming response format.
 func (sp *StreamProcessor) ProcessAnthropicStream(ctx context.Context, response *http.Response) error {
-	defer sp.handler.WriteDone(sp.requestID)
+	defer func() {
+		if err := sp.handler.WriteDone(sp.requestID); err != nil {
+			// Log the error but don't return it as it's in defer
+		}
+	}()
 	defer response.Body.Close()
 
 	scanner := bufio.NewScanner(response.Body)

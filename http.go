@@ -8,6 +8,19 @@ import (
 	"time"
 )
 
+// contextKey is a custom type for context keys to avoid collisions
+type contextKey string
+
+const (
+	clientIPContextKey contextKey = "client_ip"
+)
+
+// Health status constants
+const (
+	healthStatusHealthy   = "healthy"
+	healthStatusUnhealthy = "unhealthy"
+)
+
 // ChatRequest represents an incoming chat request.
 type ChatRequest struct {
 	Message string `json:"message"`
@@ -65,7 +78,7 @@ func (h *HTTPHandler) HandleHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create context with client information
-	ctx := context.WithValue(r.Context(), "client_ip", h.getClientIP(r))
+	ctx := context.WithValue(r.Context(), clientIPContextKey, h.getClientIP(r))
 
 	// Add timeout if not already set
 	if h.chatbot.timeout > 0 {
@@ -97,7 +110,10 @@ func (h *HTTPHandler) HandleHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		// Error encoding response, but headers already sent
+		return
+	}
 }
 
 // writeErrorResponse writes an error response to the client.
@@ -106,7 +122,10 @@ func (h *HTTPHandler) writeErrorResponse(w http.ResponseWriter, statusCode int, 
 	response := ChatResponse{
 		Error: message,
 	}
-	json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		// Error encoding response, but headers already sent
+		return
+	}
 }
 
 // getClientIP extracts the client IP address from the request.
@@ -143,18 +162,23 @@ func (h *HTTPHandler) Health(w http.ResponseWriter, r *http.Request) {
 	if err := h.chatbot.Health(ctx); err != nil {
 		w.WriteHeader(http.StatusServiceUnavailable)
 		response := map[string]interface{}{
-			"status": "unhealthy",
+			"status": healthStatusUnhealthy,
 			"error":  err.Error(),
 		}
-		json.NewEncoder(w).Encode(response)
+		if encErr := json.NewEncoder(w).Encode(response); encErr != nil {
+			// Error encoding response, but headers already sent
+		}
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
 	response := map[string]interface{}{
-		"status": "healthy",
+		"status": healthStatusHealthy,
 	}
-	json.NewEncoder(w).Encode(response)
+	if err := json.NewEncoder(w).Encode(response); err != nil {
+		// Error encoding response, but headers already sent
+		return
+	}
 }
 
 // HandleHTTP is a convenience method to create and handle HTTP requests.

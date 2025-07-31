@@ -22,7 +22,7 @@ type GeminiModel struct {
 // NewGeminiModel creates a new Gemini model instance.
 func NewGeminiModel(cfg config.GeminiConfig) (*GeminiModel, error) {
 	if cfg.APIKey == "" {
-		return nil, fmt.Errorf("Gemini API key is required")
+		return nil, fmt.Errorf("gemini API key is required")
 	}
 	if cfg.Model == "" {
 		cfg.Model = "gemini-1.5-flash" // Default model
@@ -220,9 +220,9 @@ func (g *GeminiModel) Ask(ctx context.Context, message string, context map[strin
 	if resp.StatusCode != http.StatusOK {
 		var errResp geminiError
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			return "", fmt.Errorf("Gemini API error: %s", errResp.Error.Message)
+			return "", fmt.Errorf("gemini API error: %s", errResp.Error.Message)
 		}
-		return "", fmt.Errorf("Gemini API error: status %d, body: %s", resp.StatusCode, string(body))
+		return "", fmt.Errorf("gemini API error: status %d, body: %s", resp.StatusCode, string(body))
 	}
 
 	// Parse the response
@@ -308,7 +308,7 @@ func (g *GeminiModel) Health(ctx context.Context) error {
 	}
 
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("Gemini API server error: %d", resp.StatusCode)
+		return fmt.Errorf("gemini API server error: %d", resp.StatusCode)
 	}
 
 	return nil

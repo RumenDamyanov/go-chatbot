@@ -23,7 +23,7 @@ type AnthropicModel struct {
 // NewAnthropicModel creates a new Anthropic model instance.
 func NewAnthropicModel(cfg config.AnthropicConfig) (*AnthropicModel, error) {
 	if cfg.APIKey == "" {
-		return nil, fmt.Errorf("Anthropic API key is required")
+		return nil, fmt.Errorf("anthropic API key is required")
 	}
 	if cfg.Model == "" {
 		cfg.Model = "claude-3-haiku-20240307" // Default model
@@ -164,9 +164,9 @@ func (a *AnthropicModel) Ask(ctx context.Context, message string, context map[st
 	if resp.StatusCode != http.StatusOK {
 		var errResp anthropicError
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			return "", fmt.Errorf("Anthropic API error: %s", errResp.Message)
+			return "", fmt.Errorf("anthropic API error: %s", errResp.Message)
 		}
-		return "", fmt.Errorf("Anthropic API error: status %d, body: %s", resp.StatusCode, string(body))
+		return "", fmt.Errorf("anthropic API error: status %d, body: %s", resp.StatusCode, string(body))
 	}
 
 	// Parse the response
@@ -243,7 +243,7 @@ func (a *AnthropicModel) Health(ctx context.Context) error {
 	}
 
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("Anthropic API server error: %d", resp.StatusCode)
+		return fmt.Errorf("anthropic API server error: %d", resp.StatusCode)
 	}
 
 	return nil

@@ -21,7 +21,7 @@ type MetaModel struct {
 // NewMetaModel creates a new Meta model instance.
 func NewMetaModel(cfg config.MetaConfig) (*MetaModel, error) {
 	if cfg.APIKey == "" {
-		return nil, fmt.Errorf("Meta API key is required")
+		return nil, fmt.Errorf("meta API key is required")
 	}
 	if cfg.Model == "" {
 		cfg.Model = "llama-3.2-3b-instruct" // Default model
@@ -202,9 +202,9 @@ func (m *MetaModel) Ask(ctx context.Context, message string, context map[string]
 	if resp.StatusCode != http.StatusOK {
 		var errResp metaError
 		if err := json.Unmarshal(body, &errResp); err == nil {
-			return "", fmt.Errorf("Meta API error: %s", errResp.Error.Message)
+			return "", fmt.Errorf("meta API error: %s", errResp.Error.Message)
 		}
-		return "", fmt.Errorf("Meta API error: status %d, body: %s", resp.StatusCode, string(body))
+		return "", fmt.Errorf("meta API error: status %d, body: %s", resp.StatusCode, string(body))
 	}
 
 	// Parse the response
@@ -280,7 +280,7 @@ func (m *MetaModel) Health(ctx context.Context) error {
 	}
 
 	if resp.StatusCode >= 500 {
-		return fmt.Errorf("Meta API server error: %d", resp.StatusCode)
+		return fmt.Errorf("meta API server error: %d", resp.StatusCode)
 	}
 
 	return nil

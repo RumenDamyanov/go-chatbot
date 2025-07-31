@@ -229,7 +229,7 @@ func TestGetChatbotFromChiContext(t *testing.T) {
 	r := chi.NewRouter()
 	r.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ctx := context.WithValue(r.Context(), "chatbot", bot)
+			ctx := context.WithValue(r.Context(), chatbotContextKey, bot)
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	})
@@ -267,7 +267,7 @@ func TestGetChatbotFromChiContext(t *testing.T) {
 	r3 := chi.NewRouter()
 	r3.Use(func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			ctx := context.WithValue(r.Context(), "chatbot", "not a chatbot")
+			ctx := context.WithValue(r.Context(), chatbotContextKey, "not a chatbot")
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})
 	})

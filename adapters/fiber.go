@@ -95,11 +95,12 @@ func (a *FiberAdapter) HealthHandler() fiber.Handler {
 
 		// Use the chatbot's health check method
 		if err := a.chatbot.Health(ctx); err != nil {
-			response.Status = "unhealthy"
+			response.Status = healthStatusUnhealthy
 			response.Error = err.Error()
 			return c.Status(fiber.StatusServiceUnavailable).JSON(response)
 		}
 
+		response.Status = healthStatusHealthy
 		return c.Status(fiber.StatusOK).JSON(response)
 	}
 }

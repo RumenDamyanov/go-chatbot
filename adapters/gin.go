@@ -11,6 +11,12 @@ import (
 	gochatbot "github.com/RumenDamyanov/go-chatbot"
 )
 
+// Health status constants
+const (
+	healthStatusHealthy   = "healthy"
+	healthStatusUnhealthy = "unhealthy"
+)
+
 // GinAdapter provides Gin framework integration for go-chatbot.
 type GinAdapter struct {
 	chatbot *gochatbot.Chatbot
@@ -113,12 +119,13 @@ func (a *GinAdapter) HealthHandler() gin.HandlerFunc {
 
 		// Use the chatbot's health check method
 		if err := a.chatbot.Health(ctx); err != nil {
-			response.Status = "unhealthy"
+			response.Status = healthStatusUnhealthy
 			response.Error = err.Error()
 			c.JSON(http.StatusServiceUnavailable, response)
 			return
 		}
 
+		response.Status = healthStatusHealthy
 		c.JSON(http.StatusOK, response)
 	}
 }

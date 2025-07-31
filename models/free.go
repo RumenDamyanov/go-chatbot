@@ -2,7 +2,8 @@ package models
 
 import (
 	"context"
-	"math/rand"
+	"crypto/rand"
+	"math/big"
 	"strings"
 	"time"
 )
@@ -58,9 +59,13 @@ func (f *FreeModel) Ask(ctx context.Context, message string, context map[string]
 	case strings.Contains(message, "?"):
 		return "That's an interesting question! While I'm a basic model, I'll do my best to help.", nil
 	default:
-		// Return a random response for other messages
-		rand.Seed(time.Now().UnixNano())
-		return f.responses[rand.Intn(len(f.responses))], nil
+		// Return a random response for other messages using crypto/rand
+		n, err := rand.Int(rand.Reader, big.NewInt(int64(len(f.responses))))
+		if err != nil {
+			// Fallback to first response if random generation fails
+			return f.responses[0], nil
+		}
+		return f.responses[n.Int64()], nil
 	}
 }
 
