@@ -1,7 +1,7 @@
 # go-chatbot
 
 ![CI](https://github.com/RumenDamyanov/go-chatbot/actions/workflows/ci.yml/badge.svg)
-![CodeQL](https://github.com/RumenDamyanov/go-chatbot/actions/workflows/codeql.yml/badge.svg)
+![CodeQL](https://github.com/RumenDamyanov/go-chatbot/actions/workflows/github-code-scanning/codeql/badge.svg)
 [![codecov](https://codecov.io/gh/RumenDamyanov/go-chatbot/branch/master/graph/badge.svg)](https://codecov.io/gh/RumenDamyanov/go-chatbot)
 [![Go Report Card](https://goreportcard.com/badge/github.com/RumenDamyanov/go-chatbot)](https://goreportcard.com/report/github.com/RumenDamyanov/go-chatbot)
 [![Go Reference](https://pkg.go.dev/badge/github.com/RumenDamyanov/go-chatbot.svg)](https://pkg.go.dev/github.com/RumenDamyanov/go-chatbot)
