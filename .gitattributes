@@ -1,0 +1,70 @@
+# Set default behavior to automatically normalize line endings.
+* text=auto
+
+# Force the following filetypes to have unix eols, so Windows does not break them
+*.* text eol=lf
+
+# Windows forced line-endings
+*.bat text eol=crlf
+
+# These files are text and should be normalized (Convert crlf => lf)
+*.go text
+*.mod text
+*.sum text
+*.md text
+*.txt text
+*.yml text
+*.yaml text
+*.json text
+*.js text
+*.ts text
+*.jsx text
+*.tsx text
+*.css text
+*.scss text
+*.html text
+*.xml text
+*.svg text
+
+# These files are binary and should be left untouched
+# (binary is a macro for -text -diff)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pyc binary
+*.pdf binary
+*.ez binary
+*.bz2 binary
+*.swp binary
+*.jar binary
+
+# Go specific
+go.mod text
+go.sum text
+
+# Documentation
+*.md text
+CHANGELOG text
+CONTRIBUTING text
+COPYING text
+COPYRIGHT text
+INSTALL text
+LICENSE text
+NEWS text
+README text
+TODO text

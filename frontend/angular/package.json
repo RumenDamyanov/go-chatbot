@@ -1,0 +1,74 @@
+{
+  "name": "@go-chatbot/angular",
+  "version": "1.0.0",
+  "description": "Angular component for Go Chatbot integration",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "ng lint",
+    "dev": "ng serve"
+  },
+  "keywords": [
+    "angular",
+    "chatbot",
+    "go",
+    "chat",
+    "component",
+    "typescript"
+  ],
+  "author": "Go Chatbot Team",
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "devDependencies": {
+    "@angular/animations": "^17.0.0",
+    "@angular/cli": "^17.0.0",
+    "@angular/common": "^17.0.0",
+    "@angular/compiler": "^17.0.0",
+    "@angular/compiler-cli": "^17.0.0",
+    "@angular/core": "^17.0.0",
+    "@angular/forms": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/platform-browser-dynamic": "^17.0.0",
+    "@types/jest": "^29.5.0",
+    "@types/node": "^20.0.0",
+    "jest": "^29.5.0",
+    "jest-preset-angular": "^13.1.0",
+    "ng-packagr": "^17.0.0",
+    "rxjs": "^7.8.0",
+    "typescript": "^5.2.0",
+    "zone.js": "^0.14.0"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup-jest.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.ts",
+      "!src/**/*.d.ts",
+      "!src/**/*.module.ts",
+      "!src/**/index.ts"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/go-chatbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-org/go-chatbot/issues"
+  },
+  "homepage": "https://github.com/your-org/go-chatbot#readme"
+}

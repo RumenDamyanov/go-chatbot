@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Chatbot - Vanilla JavaScript Example</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero {
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .example-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .example-card h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .example-card p {
+            opacity: 0.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+            text-align: left;
+            overflow-x: auto;
+        }
+
+        .status {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        /* Custom themes for different examples */
+        .go-chatbot-container.custom-theme .go-chatbot-button {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .go-chatbot-container.custom-theme .go-chatbot-header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .go-chatbot-container.dark-theme .go-chatbot-window {
+            background-color: #2c3e50;
+            color: white;
+        }
+
+        .go-chatbot-container.dark-theme .go-chatbot-header {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .go-chatbot-container.dark-theme .go-chatbot-message--bot .go-chatbot-message-content {
+            background-color: #34495e;
+            color: white;
+        }
+
+        .go-chatbot-container.dark-theme .go-chatbot-input {
+            background-color: #34495e;
+            border-color: #4a5f7a;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>🤖 Go Chatbot</h1>
+            <p>Vanilla JavaScript Edition</p>
+            <p>A framework-agnostic chat widget that works anywhere</p>
+        </div>
+
+        <div class="examples">
+            <div class="example-card">
+                <h3>🎨 Custom Styled</h3>
+                <p>Create a chatbot with custom colors and styling</p>
+                <button class="btn" onclick="createCustomChatbot()">Try Custom Theme</button>
+                <div class="code-block">
+new GoChatbot({
+  className: 'custom-theme',
+  position: 'bottom-left'
+});
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h3>🌙 Dark Theme</h3>
+                <p>Perfect for dark mode applications</p>
+                <button class="btn" onclick="createDarkChatbot()">Try Dark Theme</button>
+                <div class="code-block">
+new GoChatbot({
+  className: 'dark-theme',
+  position: 'top-right'
+});
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h3>💬 With Welcome Message</h3>
+                <p>Start conversations with pre-populated messages</p>
+                <button class="btn" onclick="createWelcomeChatbot()">Try Welcome Bot</button>
+                <div class="code-block">
+new GoChatbot({
+  initialMessages: [{
+    text: 'Hello! How can I help?',
+    sender: 'bot'
+  }]
+});
+                </div>
+            </div>
+
+            <div class="example-card">
+                <h3>⚙️ Fully Configured</h3>
+                <p>Example with all available options</p>
+                <button class="btn" onclick="createFullChatbot()">Try Full Config</button>
+                <div class="code-block">
+new GoChatbot({
+  apiEndpoint: '/api/chat',
+  placeholder: 'Ask me anything...',
+  maxHeight: '500px',
+  showTypingIndicator: true
+});
+                </div>
+            </div>
+        </div>
+
+        <div class="status">
+            <h3>📊 Event Log</h3>
+            <div id="eventLog" style="font-family: monospace; text-align: left; height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                <div style="opacity: 0.7;">Waiting for events...</div>
+            </div>
+            <button class="btn" onclick="clearLog()">Clear Log</button>
+        </div>
+    </div>
+
+    <!-- Load the chatbot library -->
+    <script src="../src/go-chatbot.js"></script>
+
+    <!-- Demo scripts -->
+    <script>
+        let activeChatbot = null;
+        const eventLog = document.getElementById('eventLog');
+
+        function logEvent(type, data) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.innerHTML = `<span style="color: #4a90e2;">[${timestamp}]</span> <strong>${type}:</strong> ${data || 'N/A'}`;
+            eventLog.appendChild(logEntry);
+            eventLog.scrollTop = eventLog.scrollHeight;
+        }
+
+        function destroyActiveChatbot() {
+            if (activeChatbot) {
+                activeChatbot.destroy();
+                activeChatbot = null;
+                logEvent('DESTROYED', 'Previous chatbot instance destroyed');
+            }
+        }
+
+        function setupEventListeners(chatbot) {
+            chatbot.on('opened', () => logEvent('OPENED', 'Chat window opened'));
+            chatbot.on('closed', () => logEvent('CLOSED', 'Chat window closed'));
+            chatbot.on('messageSent', (message) => logEvent('MESSAGE_SENT', message));
+            chatbot.on('responseReceived', (response) => logEvent('RESPONSE_RECEIVED', response));
+            chatbot.on('error', (error) => logEvent('ERROR', error));
+        }
+
+        // Mock API for demo purposes
+        window.fetch = async function(url, options) {
+            logEvent('API_CALL', `${options.method} ${url}`);
+
+            // Simulate network delay
+            await new Promise(resolve => setTimeout(resolve, 1000 + Math.random() * 1000));
+
+            const body = JSON.parse(options.body);
+            const userMessage = body.message.toLowerCase();
+
+            // Simple response logic for demo
+            let response;
+            if (userMessage.includes('hello') || userMessage.includes('hi')) {
+                response = 'Hello! How can I help you today?';
+            } else if (userMessage.includes('help')) {
+                response = 'I\'m here to help! You can ask me about our services, features, or anything else.';
+            } else if (userMessage.includes('time')) {
+                response = `The current time is ${new Date().toLocaleTimeString()}`;
+            } else if (userMessage.includes('weather')) {
+                response = 'I don\'t have access to weather data, but it\'s always sunny in the world of code! ☀️';
+            } else if (userMessage.includes('joke')) {
+                const jokes = [
+                    'Why don\'t scientists trust atoms? Because they make up everything!',
+                    'Why did the developer go broke? Because he used up all his cache!',
+                    'How many programmers does it take to change a light bulb? None, it\'s a hardware problem!'
+                ];
+                response = jokes[Math.floor(Math.random() * jokes.length)];
+            } else {
+                response = `I received your message: "${body.message}". This is a demo response from the Go Chatbot!`;
+            }
+
+            return {
+                json: async () => ({
+                    success: true,
+                    response: response
+                })
+            };
+        };
+
+        function createCustomChatbot() {
+            destroyActiveChatbot();
+            activeChatbot = new GoChatbot({
+                apiEndpoint: '/api/chat',
+                className: 'custom-theme',
+                position: 'bottom-left',
+                placeholder: 'Type your message here...'
+            });
+            setupEventListeners(activeChatbot);
+            logEvent('CREATED', 'Custom themed chatbot created');
+        }
+
+        function createDarkChatbot() {
+            destroyActiveChatbot();
+            activeChatbot = new GoChatbot({
+                apiEndpoint: '/api/chat',
+                className: 'dark-theme',
+                position: 'top-right',
+                placeholder: 'Ask me anything...'
+            });
+            setupEventListeners(activeChatbot);
+            logEvent('CREATED', 'Dark themed chatbot created');
+        }
+
+        function createWelcomeChatbot() {
+            destroyActiveChatbot();
+            activeChatbot = new GoChatbot({
+                apiEndpoint: '/api/chat',
+                initialMessages: [
+                    {
+                        text: 'Hello! I\'m your assistant. How can I help you today?',
+                        sender: 'bot',
+                        timestamp: new Date()
+                    }
+                ],
+                placeholder: 'Reply here...'
+            });
+            setupEventListeners(activeChatbot);
+            activeChatbot.open(); // Auto-open to show welcome message
+            logEvent('CREATED', 'Welcome chatbot created with initial message');
+        }
+
+        function createFullChatbot() {
+            destroyActiveChatbot();
+            activeChatbot = new GoChatbot({
+                apiEndpoint: '/api/advanced-chat',
+                placeholder: 'Ask me anything...',
+                maxHeight: '500px',
+                showTypingIndicator: true,
+                position: 'bottom-right',
+                initialMessages: [
+                    {
+                        text: 'Welcome to the fully configured chatbot! Try typing "help", "time", "weather", or "joke".',
+                        sender: 'bot',
+                        timestamp: new Date()
+                    }
+                ]
+            });
+            setupEventListeners(activeChatbot);
+            logEvent('CREATED', 'Fully configured chatbot created');
+        }
+
+        function clearLog() {
+            eventLog.innerHTML = '<div style="opacity: 0.7;">Log cleared...</div>';
+        }
+
+        // Auto-create a default chatbot on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createFullChatbot();
+            logEvent('INIT', 'Page loaded, default chatbot created');
+        });
+    </script>
+</body>
+</html>
