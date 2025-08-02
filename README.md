@@ -1,10 +1,12 @@
 # go-chatbot
 
-![CI](https://github.com/RumenDamyanov/go-chatbot/actions/workflows/ci.yml/badge.svg)
-![CodeQL](https://github.com/RumenDamyanov/go-chatbot/actions/workflows/github-code-scanning/codeql/badge.svg)
-[![codecov](https://codecov.io/gh/RumenDamyanov/go-chatbot/branch/master/graph/badge.svg)](https://codecov.io/gh/RumenDamyanov/go-chatbot)
-[![Go Report Card](https://goreportcard.com/badge/github.com/RumenDamyanov/go-chatbot)](https://goreportcard.com/report/github.com/RumenDamyanov/go-chatbot)
-[![Go Reference](https://pkg.go.dev/badge/github.com/RumenDamyanov/go-chatbot.svg)](https://pkg.go.dev/github.com/RumenDamyanov/go-chatbot)
+[![CI](https://github.com/rumendamyanov/go-chatbot/actions/workflows/ci.yml/badge.svg)](https://github.com/rumendamyanov/go-chatbot/actions/workflows/ci.yml)
+![CodeQL](https://github.com/rumendamyanov/go-chatbot/actions/workflows/github-code-scanning/codeql/badge.svg)
+![Dependabot](https://github.com/rumendamyanov/go-chatbot/actions/workflows/dependabot/dependabot-updates/badge.svg)
+[![codecov](https://codecov.io/gh/rumendamyanov/go-chatbot/branch/master/graph/badge.svg)](https://codecov.io/gh/rumendamyanov/go-chatbot)
+[![Go Report Card](https://goreportcard.com/badge/github.com/rumendamyanov/go-chatbot?)](https://goreportcard.com/report/github.com/rumendamyanov/go-chatbot)
+[![Go Reference](https://pkg.go.dev/badge/github.com/rumendamyanov/go-chatbot.svg)](https://pkg.go.dev/github.com/rumendamyanov/go-chatbot)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rumendamyanov/go-chatbot/blob/master/LICENSE.md)
 
 > 📖 **Documentation**: [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) · [Funding](FUNDING.md)
 
