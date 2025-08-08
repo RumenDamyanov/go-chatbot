@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"time"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
 	"github.com/go-chi/chi/v5"
+	gochatbot "go.rumenx.com/chatbot"
 )
 
 // contextKey is a custom type for context keys to avoid collisions

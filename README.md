@@ -5,7 +5,7 @@
 ![Dependabot](https://github.com/rumendamyanov/go-chatbot/actions/workflows/dependabot/dependabot-updates/badge.svg)
 [![codecov](https://codecov.io/gh/rumendamyanov/go-chatbot/branch/master/graph/badge.svg)](https://codecov.io/gh/rumendamyanov/go-chatbot)
 [![Go Report Card](https://goreportcard.com/badge/github.com/rumendamyanov/go-chatbot?)](https://goreportcard.com/report/github.com/rumendamyanov/go-chatbot)
-[![Go Reference](https://pkg.go.dev/badge/github.com/rumendamyanov/go-chatbot.svg)](https://pkg.go.dev/github.com/rumendamyanov/go-chatbot)
+[![Go Reference](https://pkg.go.dev/badge/go.rumenx.com/chatbot.svg)](https://pkg.go.dev/go.rumenx.com/chatbot)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/rumendamyanov/go-chatbot/blob/master/LICENSE.md)
 
 > 📖 **Documentation**: [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md) · [Funding](FUNDING.md)
@@ -46,28 +46,28 @@ This project is inspired by and related to the [php-chatbot](https://github.com/
 
 ## 📚 Documentation & Wiki
 
-Comprehensive documentation and guides are available in our [GitHub Wiki](https://github.com/RumenDamyanov/go-chatbot/wiki):
+Comprehensive documentation and guides are available in our [GitHub Wiki](https://go.rumenx.com/chatbot/wiki):
 
 ### 🚀 Getting Started
-- **[Installation Guide](https://github.com/RumenDamyanov/go-chatbot/wiki/Installation-Guide)** - Step-by-step installation for all environments
-- **[Quick Start Guide](https://github.com/RumenDamyanov/go-chatbot/wiki/Quick-Start-Guide)** - Get up and running in minutes
-- **[Configuration](https://github.com/RumenDamyanov/go-chatbot/wiki/Configuration)** - Complete configuration reference
+- **[Installation Guide](https://go.rumenx.com/chatbot/wiki/Installation-Guide)** - Step-by-step installation for all environments
+- **[Quick Start Guide](https://go.rumenx.com/chatbot/wiki/Quick-Start-Guide)** - Get up and running in minutes
+- **[Configuration](https://go.rumenx.com/chatbot/wiki/Configuration)** - Complete configuration reference
 
 ### 🔧 Implementation Guides
-- **[Framework Integration](https://github.com/RumenDamyanov/go-chatbot/wiki/Framework-Integration)** - Gin, Echo, Fiber, Chi, and vanilla net/http setup
-- **[Frontend Integration](https://github.com/RumenDamyanov/go-chatbot/wiki/Frontend-Integration)** - React, Vue, Angular components and examples
-- **[AI Models](https://github.com/RumenDamyanov/go-chatbot/wiki/AI-Models)** - Provider comparison and configuration
+- **[Framework Integration](https://go.rumenx.com/chatbot/wiki/Framework-Integration)** - Gin, Echo, Fiber, Chi, and vanilla net/http setup
+- **[Frontend Integration](https://go.rumenx.com/chatbot/wiki/Frontend-Integration)** - React, Vue, Angular components and examples
+- **[AI Models](https://go.rumenx.com/chatbot/wiki/AI-Models)** - Provider comparison and configuration
 
 ### 📖 Examples & Best Practices
-- **[Examples](https://github.com/RumenDamyanov/go-chatbot/wiki/Examples)** - Real-world implementations and use cases
-- **[Best Practices](https://github.com/RumenDamyanov/go-chatbot/wiki/Best-Practices)** - Production deployment and security guidelines
-- **[Security & Filtering](https://github.com/RumenDamyanov/go-chatbot/wiki/Security-and-Filtering)** - Content filtering and abuse prevention
+- **[Examples](https://go.rumenx.com/chatbot/wiki/Examples)** - Real-world implementations and use cases
+- **[Best Practices](https://go.rumenx.com/chatbot/wiki/Best-Practices)** - Production deployment and security guidelines
+- **[Security & Filtering](https://go.rumenx.com/chatbot/wiki/Security-and-Filtering)** - Content filtering and abuse prevention
 
 ### 🛠️ Development & Support
-- **[API Reference](https://pkg.go.dev/github.com/RumenDamyanov/go-chatbot)** - Complete API documentation
-- **[Troubleshooting](https://github.com/RumenDamyanov/go-chatbot/wiki/Troubleshooting)** - Common issues and solutions
-- **[Contributing](https://github.com/RumenDamyanov/go-chatbot/wiki/Contributing)** - How to contribute to the project
-- **[FAQ](https://github.com/RumenDamyanov/go-chatbot/wiki/FAQ)** - Frequently asked questions
+- **[API Reference](https://pkg.go.dev/go.rumenx.com/chatbot)** - Complete API documentation
+- **[Troubleshooting](https://go.rumenx.com/chatbot/wiki/Troubleshooting)** - Common issues and solutions
+- **[Contributing](https://go.rumenx.com/chatbot/wiki/Contributing)** - How to contribute to the project
+- **[FAQ](https://go.rumenx.com/chatbot/wiki/FAQ)** - Frequently asked questions
 
 > 💡 **Tip**: The wiki contains production-ready examples, troubleshooting guides, and comprehensive API documentation that goes beyond this README.
 
@@ -135,7 +135,7 @@ router.Use(adapter.Middleware())
 ## Installation
 
 ```bash
-go get github.com/RumenDamyanov/go-chatbot
+go get go.rumenx.com/chatbot
 ```
 
 ### Gin Framework
@@ -145,9 +145,9 @@ package main
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/adapters"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/adapters"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -177,9 +177,9 @@ package main
 
 import (
     "github.com/labstack/echo/v4"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/adapters"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/adapters"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -209,9 +209,9 @@ package main
 
 import (
     "github.com/gofiber/fiber/v2"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/adapters"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/adapters"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -242,9 +242,9 @@ package main
 import (
     "net/http"
     "github.com/go-chi/chi/v5"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/adapters"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/adapters"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -272,8 +272,8 @@ func main() {
 ```go
 import (
     "net/http"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -309,9 +309,9 @@ import (
     "fmt"
     "log"
 
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/config"
-    "github.com/RumenDamyanov/go-chatbot/models"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/config"
+    "go.rumenx.com/chatbot/models"
 )
 
 func main() {
@@ -348,7 +348,7 @@ The package includes three enterprise-level features that elevate it beyond basi
 Server-Sent Events (SSE) streaming for live response delivery:
 
 ```go
-import "github.com/RumenDamyanov/go-chatbot/streaming"
+import "go.rumenx.com/chatbot/streaming"
 
 // Create stream handler
 streamHandler := streaming.NewStreamHandler()
@@ -371,7 +371,7 @@ err := chatbot.AskStream(ctx, "Tell me a story", func(chunk string) error {
 OpenAI embeddings integration with semantic search:
 
 ```go
-import "github.com/RumenDamyanov/go-chatbot/embeddings"
+import "go.rumenx.com/chatbot/embeddings"
 
 // Create embedding provider
 provider := embeddings.NewOpenAIEmbeddingProvider(apiKey, "text-embedding-3-small")
@@ -398,7 +398,7 @@ results, err := vectorStore.Search(ctx, provider, "What is Go?", 5)
 Full SQL-based conversation management:
 
 ```go
-import "github.com/RumenDamyanov/go-chatbot/database"
+import "go.rumenx.com/chatbot/database"
 
 // Create conversation store
 store, err := database.NewSQLConversationStore("sqlite", "./chat.db")
@@ -569,9 +569,9 @@ Example for Gin:
 import (
     "net/http"
     "github.com/gin-gonic/gin"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/config"
-    "github.com/RumenDamyanov/go-chatbot/models"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/config"
+    "go.rumenx.com/chatbot/models"
 )
 
 func ChatHandler(cfg *config.Config) gin.HandlerFunc {
@@ -665,7 +665,7 @@ package main
 
 import (
     "os"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {
@@ -754,7 +754,7 @@ cfg := &config.Config{
 Example usage:
 
 ```go
-import "github.com/RumenDamyanov/go-chatbot/middleware"
+import "go.rumenx.com/chatbot/middleware"
 
 filter := middleware.NewChatMessageFilter(cfg.MessageFiltering)
 
@@ -775,7 +775,7 @@ Purpose:
 
 ## Questions & Support
 
-For questions, issues, or feature requests, please use the [GitHub Issues](https://github.com/RumenDamyanov/go-chatbot/issues) page.
+For questions, issues, or feature requests, please use the [GitHub Issues](https://go.rumenx.com/chatbot/issues) page.
 
 For security vulnerabilities, please see our [Security Policy](SECURITY.md).
 

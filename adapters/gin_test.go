@@ -13,8 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
-	"github.com/RumenDamyanov/go-chatbot/config"
+	gochatbot "go.rumenx.com/chatbot"
+	"go.rumenx.com/chatbot/config"
 )
 
 func setupTestBot() *gochatbot.Chatbot {

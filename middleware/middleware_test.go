@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestChatMessageFilter_UpdateConfig(t *testing.T) {

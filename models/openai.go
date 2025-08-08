@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // OpenAIModel implements the Model interface for OpenAI's API.

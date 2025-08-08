@@ -3,7 +3,7 @@ package models
 import (
 	"testing"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestNewFromConfig(t *testing.T) {

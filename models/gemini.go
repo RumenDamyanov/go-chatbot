@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // GeminiModel implements the Model interface for Google's Gemini API.

@@ -9,7 +9,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // ChatMessageFilter provides message filtering capabilities.

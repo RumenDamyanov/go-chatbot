@@ -8,7 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
+	gochatbot "go.rumenx.com/chatbot"
 )
 
 // Health status constants

@@ -128,7 +128,7 @@ Current test coverage:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/RumenDamyanov/go-chatbot.git
+   git clone https://go.rumenx.com/chatbot.git
    cd go-chatbot
    ```
 

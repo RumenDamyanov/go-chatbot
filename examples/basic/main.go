@@ -6,8 +6,8 @@ import (
 	"log"
 	"net/http"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
-	"github.com/RumenDamyanov/go-chatbot/config"
+	gochatbot "go.rumenx.com/chatbot"
+	"go.rumenx.com/chatbot/config"
 )
 
 func main() {

@@ -7,9 +7,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
-	"github.com/RumenDamyanov/go-chatbot/middleware"
-	"github.com/RumenDamyanov/go-chatbot/models"
+	"go.rumenx.com/chatbot/config"
+	"go.rumenx.com/chatbot/middleware"
+	"go.rumenx.com/chatbot/models"
 )
 
 func TestWithModel(t *testing.T) {

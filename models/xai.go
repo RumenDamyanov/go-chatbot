@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // XAIModel implements the Model interface for xAI's Grok API.

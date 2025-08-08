@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // OllamaModel implements the Model interface for Ollama local models.

@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // MetaModel implements the Model interface for Meta's LLaMA API.

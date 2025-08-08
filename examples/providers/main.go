@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
-	"github.com/RumenDamyanov/go-chatbot/models"
+	"go.rumenx.com/chatbot/config"
+	"go.rumenx.com/chatbot/models"
 )
 
 func main() {

@@ -11,7 +11,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // Vector represents an embedding vector.

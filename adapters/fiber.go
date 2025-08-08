@@ -6,7 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
+	gochatbot "go.rumenx.com/chatbot"
 )
 
 // FiberAdapter provides Fiber framework integration for go-chatbot.

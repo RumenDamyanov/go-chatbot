@@ -140,7 +140,7 @@ For security-related questions or concerns, please contact:
 
 **Email**: <contact@rumenx.com>
 
-For general questions, please use our [GitHub Issues](https://github.com/RumenDamyanov/go-chatbot/issues) page.
+For general questions, please use our [GitHub Issues](https://go.rumenx.com/chatbot/issues) page.
 
 ---
 

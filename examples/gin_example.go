@@ -6,10 +6,10 @@ package main
 import (
 	"log"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
-	"github.com/RumenDamyanov/go-chatbot/adapters"
-	"github.com/RumenDamyanov/go-chatbot/config"
 	"github.com/gin-gonic/gin"
+	gochatbot "go.rumenx.com/chatbot"
+	"go.rumenx.com/chatbot/adapters"
+	"go.rumenx.com/chatbot/config"
 )
 
 func main() {

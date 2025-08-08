@@ -7,7 +7,7 @@ import (
 
 	"github.com/labstack/echo/v4"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
+	gochatbot "go.rumenx.com/chatbot"
 )
 
 // EchoAdapter provides Echo framework integration for go-chatbot.

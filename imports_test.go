@@ -3,7 +3,7 @@ package gochatbot
 import (
 	"testing"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // TestBasicChatbotCreation tests that we can create a basic chatbot
