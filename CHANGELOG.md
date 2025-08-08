@@ -71,4 +71,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-*For more details about releases, see [GitHub Releases](https://github.com/RumenDamyanov/go-chatbot/releases).*
+*For more details about releases, see [GitHub Releases](https://go.rumenx.com/chatbot/releases).*

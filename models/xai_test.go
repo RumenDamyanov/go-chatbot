@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestXAIModel_Health(t *testing.T) {

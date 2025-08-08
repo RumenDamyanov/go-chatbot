@@ -199,8 +199,8 @@ package main
 import (
     "context"
     "fmt"
-    "github.com/RumenDamyanov/go-chatbot/models"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot/models"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {

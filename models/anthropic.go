@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 // AnthropicModel implements the Model interface for Anthropic's Claude API.

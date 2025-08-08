@@ -3,7 +3,7 @@ package embeddings
 import (
 	"testing"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestOpenAIEmbeddingProvider_Basic(t *testing.T) {

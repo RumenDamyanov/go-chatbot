@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestNewOpenAIModel(t *testing.T) {

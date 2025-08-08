@@ -12,10 +12,10 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
-	"github.com/RumenDamyanov/go-chatbot/middleware"
-	"github.com/RumenDamyanov/go-chatbot/models"
-	"github.com/RumenDamyanov/go-chatbot/streaming"
+	"go.rumenx.com/chatbot/config"
+	"go.rumenx.com/chatbot/middleware"
+	"go.rumenx.com/chatbot/models"
+	"go.rumenx.com/chatbot/streaming"
 )
 
 // Chatbot represents the main chatbot instance.

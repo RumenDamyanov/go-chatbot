@@ -234,16 +234,16 @@ The component expects a REST API endpoint that accepts POST requests with the fo
 
 ### go-chatbot Backend
 
-This component is designed to work with the [go-chatbot](https://github.com/RumenDamyanov/go-chatbot) backend. Example server setup:
+This component is designed to work with the [go-chatbot](https://go.rumenx.com/chatbot) backend. Example server setup:
 
 ```go
 package main
 
 import (
     "github.com/gin-gonic/gin"
-    "github.com/RumenDamyanov/go-chatbot"
-    "github.com/RumenDamyanov/go-chatbot/adapters"
-    "github.com/RumenDamyanov/go-chatbot/config"
+    "go.rumenx.com/chatbot"
+    "go.rumenx.com/chatbot/adapters"
+    "go.rumenx.com/chatbot/config"
 )
 
 func main() {

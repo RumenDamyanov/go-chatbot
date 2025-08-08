@@ -25,7 +25,7 @@ linters:
 
 linters-settings:
   goimports:
-    local-prefixes: github.com/RumenDamyanov/go-chatbot
+    local-prefixes: go.rumenx.com/chatbot
   funlen:
     lines: 100
     statements: 50

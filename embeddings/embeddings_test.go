@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/RumenDamyanov/go-chatbot/config"
+	"go.rumenx.com/chatbot/config"
 )
 
 func TestEmbed_EmptyTexts(t *testing.T) {
@@ -165,7 +165,7 @@ func TestEmbedSingle_Success(t *testing.T) {
 func TestVectorStore_BasicOperations(t *testing.T) {
 	config := config.OpenAIConfig{APIKey: "test-key"}
 	provider := NewOpenAIEmbeddingProvider(config, "text-embedding-3-small")
-	
+
 	vectorStore := NewVectorStore(provider)
 	if vectorStore == nil {
 		t.Error("expected non-nil vector store")
@@ -300,14 +300,14 @@ func TestMathFunctions(t *testing.T) {
 	if len(normalized) != len(vec1) {
 		t.Errorf("normalized vector should have same length as original")
 	}
-	
+
 	// Check that normalized vector has magnitude 1
 	magnitude := 0.0
 	for _, v := range normalized {
 		magnitude += v * v
 	}
 	magnitude = DotProduct(normalized, normalized) // Using our DotProduct function
-	if magnitude < 0.99 || magnitude > 1.01 { // Allow small floating point error
+	if magnitude < 0.99 || magnitude > 1.01 {      // Allow small floating point error
 		t.Errorf("normalized vector should have magnitude ~1, got %f", magnitude)
 	}
 }
@@ -340,7 +340,7 @@ func TestVectorStore_SearchFunctionality(t *testing.T) {
 	vectorStore := NewVectorStore(provider)
 
 	ctx := context.Background()
-	
+
 	// Add some texts first
 	metadata := map[string]interface{}{"id": "1", "content": "test content"}
 	err := vectorStore.AddText(ctx, "test text", metadata)

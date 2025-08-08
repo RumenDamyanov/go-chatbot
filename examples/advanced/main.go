@@ -11,10 +11,10 @@ import (
 	"strconv"
 	"time"
 
-	gochatbot "github.com/RumenDamyanov/go-chatbot"
-	"github.com/RumenDamyanov/go-chatbot/config"
-	"github.com/RumenDamyanov/go-chatbot/database"
-	"github.com/RumenDamyanov/go-chatbot/embeddings"
+	gochatbot "go.rumenx.com/chatbot"
+	"go.rumenx.com/chatbot/config"
+	"go.rumenx.com/chatbot/database"
+	"go.rumenx.com/chatbot/embeddings"
 
 	_ "github.com/mattn/go-sqlite3"
 )
