@@ -46,28 +46,28 @@ This project is inspired by and related to the [php-chatbot](https://github.com/
 
 ## 📚 Documentation & Wiki
 
-Comprehensive documentation and guides are available in our [GitHub Wiki](https://go.rumenx.com/chatbot/wiki):
+Comprehensive documentation and guides are available in our [GitHub Wiki](https://github.com/rumendamyanov/go-chatbot/wiki):
 
 ### 🚀 Getting Started
-- **[Installation Guide](https://go.rumenx.com/chatbot/wiki/Installation-Guide)** - Step-by-step installation for all environments
-- **[Quick Start Guide](https://go.rumenx.com/chatbot/wiki/Quick-Start-Guide)** - Get up and running in minutes
-- **[Configuration](https://go.rumenx.com/chatbot/wiki/Configuration)** - Complete configuration reference
+- **[Installation Guide](https://github.com/rumendamyanov/go-chatbot/wiki/Installation-Guide)** - Step-by-step installation for all environments
+- **[Quick Start Guide](https://github.com/rumendamyanov/go-chatbot/wiki/Quick-Start-Guide)** - Get up and running in minutes
+- **[Configuration](https://github.com/rumendamyanov/go-chatbot/wiki/Configuration)** - Complete configuration reference
 
 ### 🔧 Implementation Guides
-- **[Framework Integration](https://go.rumenx.com/chatbot/wiki/Framework-Integration)** - Gin, Echo, Fiber, Chi, and vanilla net/http setup
-- **[Frontend Integration](https://go.rumenx.com/chatbot/wiki/Frontend-Integration)** - React, Vue, Angular components and examples
-- **[AI Models](https://go.rumenx.com/chatbot/wiki/AI-Models)** - Provider comparison and configuration
+- **[Framework Integration](https://github.com/rumendamyanov/go-chatbot/wiki/Framework-Integration)** - Gin, Echo, Fiber, Chi, and vanilla net/http setup
+- **[Frontend Integration](https://github.com/rumendamyanov/go-chatbot/wiki/Frontend-Integration)** - React, Vue, Angular components and examples
+- **[AI Models](https://github.com/rumendamyanov/go-chatbot/wiki/AI-Models)** - Provider comparison and configuration
 
 ### 📖 Examples & Best Practices
-- **[Examples](https://go.rumenx.com/chatbot/wiki/Examples)** - Real-world implementations and use cases
-- **[Best Practices](https://go.rumenx.com/chatbot/wiki/Best-Practices)** - Production deployment and security guidelines
-- **[Security & Filtering](https://go.rumenx.com/chatbot/wiki/Security-and-Filtering)** - Content filtering and abuse prevention
+- **[Examples](https://github.com/rumendamyanov/go-chatbot/wiki/Examples)** - Real-world implementations and use cases
+- **[Best Practices](https://github.com/rumendamyanov/go-chatbot/wiki/Best-Practices)** - Production deployment and security guidelines
+- **[Security & Filtering](https://github.com/rumendamyanov/go-chatbot/wiki/Security-and-Filtering)** - Content filtering and abuse prevention
 
 ### 🛠️ Development & Support
 - **[API Reference](https://pkg.go.dev/go.rumenx.com/chatbot)** - Complete API documentation
-- **[Troubleshooting](https://go.rumenx.com/chatbot/wiki/Troubleshooting)** - Common issues and solutions
-- **[Contributing](https://go.rumenx.com/chatbot/wiki/Contributing)** - How to contribute to the project
-- **[FAQ](https://go.rumenx.com/chatbot/wiki/FAQ)** - Frequently asked questions
+- **[Troubleshooting](https://github.com/rumendamyanov/go-chatbot/wiki/Troubleshooting)** - Common issues and solutions
+- **[Contributing](https://github.com/rumendamyanov/go-chatbot/wiki/Contributing)** - How to contribute to the project
+- **[FAQ](https://github.com/rumendamyanov/go-chatbot/wiki/FAQ)** - Frequently asked questions
 
 > 💡 **Tip**: The wiki contains production-ready examples, troubleshooting guides, and comprehensive API documentation that goes beyond this README.
 
@@ -775,7 +775,7 @@ Purpose:
 
 ## Questions & Support
 
-For questions, issues, or feature requests, please use the [GitHub Issues](https://go.rumenx.com/chatbot/issues) page.
+For questions, issues, or feature requests, please use the [GitHub Issues](https://github.com/rumendamyanov/go-chatbot/issues) page.
 
 For security vulnerabilities, please see our [Security Policy](SECURITY.md).
 
