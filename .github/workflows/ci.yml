@@ -12,17 +12,23 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go-version: ['1.26.10', '1.27.3']
     steps:
       - uses: actions/checkout@v7
       - name: Set up Go
         uses: actions/setup-go@v7
         with:
-          go-version: "1.25.x"
+          go-version: ${{ matrix.go-version }}
+          check-latest: true
       - name: Install dependencies
         run: go mod tidy
       - name: Run tests
         run: go test -v -coverprofile=coverage.out $(go list ./... | grep -v examples)
       - name: Upload coverage to Codecov
+        if: matrix.go-version == '1.26.10'
         uses: codecov/codecov-action@v7
         with:
           files: ./coverage.out

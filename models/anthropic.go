@@ -25,9 +25,11 @@ func NewAnthropicModel(cfg config.AnthropicConfig) (*AnthropicModel, error) {
 	if cfg.APIKey == "" {
 		return nil, fmt.Errorf("anthropic API key is required")
 	}
-	if cfg.Model == "" {
-		cfg.Model = "claude-3-haiku-20240307" // Default model
+	model, err := normalizeModel(cfg.Model, "claude-sonnet-5")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &AnthropicModel{
 		config:    cfg,

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-28
+
+### Security
+
+- Require Go 1.26.10 or newer. Go 1.25 and older are end of life and do not include the October 2026 toolchain fixes.
+- Require `github.com/andybalholm/brotli` v1.2.7. Earlier versions panic on crafted Brotli input used by Gin and Fiber.
+- Require `golang.org/x/net` v0.60.0 and `github.com/quic-go/quic-go` v0.59.1. Older copies are pulled in by Gin and are reachable from HTTP handlers.
+
+### Changed
+
+- Default models are now OpenAI `gpt-5.4-mini`, Anthropic `claude-sonnet-5`, Google `gemini-3.8-flash`, xAI `grok-4.6`, Meta `llama-3.3-70b-instruct`, and Ollama `llama3.3`.
+- Model names must match `^[A-Za-z0-9._-]+$` before they are sent to a provider. Gemini places the name in the request URL.
+
 ## [Unreleased]
 
 ### Added

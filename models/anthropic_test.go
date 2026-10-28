@@ -54,7 +54,7 @@ func TestNewAnthropicModel(t *testing.T) {
 				if tt.config.Model != "" {
 					assert.Equal(t, tt.config.Model, model.Name())
 				} else {
-					assert.Equal(t, "claude-3-haiku-20240307", model.Name())
+					assert.Equal(t, "claude-sonnet-5", model.Name())
 				}
 			}
 		})

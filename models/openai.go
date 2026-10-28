@@ -63,9 +63,11 @@ func NewOpenAIModel(cfg config.OpenAIConfig) (*OpenAIModel, error) {
 		cfg.Endpoint = "https://api.openai.com/v1/chat/completions"
 	}
 
-	if cfg.Model == "" {
-		cfg.Model = "gpt-4o"
+	model, err := normalizeModel(cfg.Model, "gpt-5.4-mini")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &OpenAIModel{
 		config: cfg,

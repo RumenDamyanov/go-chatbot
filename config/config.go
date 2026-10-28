@@ -116,32 +116,32 @@ func Default() *Config {
 		Model: getEnv("CHATBOT_MODEL", "free"),
 		OpenAI: OpenAIConfig{
 			APIKey:   getEnv("OPENAI_API_KEY", ""),
-			Model:    getEnv("OPENAI_MODEL", "gpt-4o"),
+			Model:    getEnv("OPENAI_MODEL", "gpt-5.4-mini"),
 			Endpoint: getEnv("OPENAI_ENDPOINT", "https://api.openai.com/v1/chat/completions"),
 		},
 		Anthropic: AnthropicConfig{
 			APIKey:   getEnv("ANTHROPIC_API_KEY", ""),
-			Model:    getEnv("ANTHROPIC_MODEL", "claude-3-sonnet-20240229"),
+			Model:    getEnv("ANTHROPIC_MODEL", "claude-sonnet-5"),
 			Endpoint: getEnv("ANTHROPIC_ENDPOINT", "https://api.anthropic.com/v1/messages"),
 		},
 		Gemini: GeminiConfig{
 			APIKey:   getEnv("GEMINI_API_KEY", ""),
-			Model:    getEnv("GEMINI_MODEL", "gemini-1.5-pro"),
+			Model:    getEnv("GEMINI_MODEL", "gemini-3.8-flash"),
 			Endpoint: getEnv("GEMINI_ENDPOINT", "https://generativelanguage.googleapis.com/v1beta/models"),
 		},
 		XAI: XAIConfig{
 			APIKey:   getEnv("XAI_API_KEY", ""),
-			Model:    getEnv("XAI_MODEL", "grok-1"),
+			Model:    getEnv("XAI_MODEL", "grok-4.6"),
 			Endpoint: getEnv("XAI_ENDPOINT", "https://api.x.ai/v1/chat/completions"),
 		},
 		Meta: MetaConfig{
 			APIKey:   getEnv("META_API_KEY", ""),
-			Model:    getEnv("META_MODEL", "llama-3-70b"),
+			Model:    getEnv("META_MODEL", "llama-3.3-70b-instruct"),
 			Endpoint: getEnv("META_ENDPOINT", "https://api.meta.ai/v1/chat/completions"),
 		},
 		Ollama: OllamaConfig{
 			Endpoint: getEnv("OLLAMA_ENDPOINT", "http://localhost:11434/api/chat"),
-			Model:    getEnv("OLLAMA_MODEL", "llama2"),
+			Model:    getEnv("OLLAMA_MODEL", "llama3.3"),
 		},
 		Prompt:      getEnv("CHATBOT_PROMPT", "You are a helpful, friendly chatbot."),
 		Language:    getEnv("CHATBOT_LANGUAGE", "en"),

@@ -54,7 +54,7 @@ func TestNewXAIModel(t *testing.T) {
 				if tt.config.Model != "" {
 					assert.Equal(t, tt.config.Model, model.Name())
 				} else {
-					assert.Equal(t, "grok-beta", model.Name())
+					assert.Equal(t, "grok-4.6", model.Name())
 				}
 			}
 		})
@@ -104,7 +104,7 @@ func TestNewMetaModel(t *testing.T) {
 				if tt.config.Model != "" {
 					assert.Equal(t, tt.config.Model, model.Name())
 				} else {
-					assert.Equal(t, "llama-3.2-3b-instruct", model.Name())
+					assert.Equal(t, "llama-3.3-70b-instruct", model.Name())
 				}
 			}
 		})
@@ -152,7 +152,7 @@ func TestNewOllamaModel(t *testing.T) {
 				if tt.config.Model != "" {
 					assert.Equal(t, tt.config.Model, model.Name())
 				} else {
-					assert.Equal(t, "llama3.2", model.Name())
+					assert.Equal(t, "llama3.3", model.Name())
 				}
 			}
 		})

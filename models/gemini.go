@@ -24,9 +24,11 @@ func NewGeminiModel(cfg config.GeminiConfig) (*GeminiModel, error) {
 	if cfg.APIKey == "" {
 		return nil, fmt.Errorf("gemini API key is required")
 	}
-	if cfg.Model == "" {
-		cfg.Model = "gemini-1.5-flash" // Default model
+	model, err := normalizeModel(cfg.Model, "gemini-3.8-flash")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &GeminiModel{
 		config: cfg,
