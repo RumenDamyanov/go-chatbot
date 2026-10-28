@@ -83,12 +83,12 @@ For detailed technical summaries and architectural overviews, see the [`docs/`](
 
 | Provider | Models | API Key Required | Type |
 |----------|--------|------------------|------|
-| OpenAI | gpt-4.1, gpt-4o, gpt-4o-mini, gpt-3.5-turbo, etc. | Yes | Remote |
-| Anthropic | Claude 3 Sonnet, 3.7, 4, etc. | Yes | Remote |
-| xAI | Grok-1, Grok-1.5, etc. | Yes | Remote |
-| Google | Gemini 1.5 Pro, Gemini 1.5 Flash, etc. | Yes | Remote |
-| Meta | Llama 3 (8B, 70B), etc. | Yes | Remote |
-| Ollama | llama2, mistral, phi3, and any local Ollama model | No (local) / Opt | Local/Remote |
+| OpenAI | gpt-5.4-mini (default), gpt-5.4, gpt-4o, gpt-4o-mini | Yes | Remote |
+| Anthropic | claude-sonnet-5 (default), claude-opus-5, claude-haiku-4-5 | Yes | Remote |
+| xAI | grok-4.6 (default), grok-4.7, grok-4.5 | Yes | Remote |
+| Google | gemini-3.8-flash (default), gemini-3.5-flash-lite | Yes | Remote |
+| Meta | llama-3.3-70b-instruct (default), Llama 3.2, Llama 3.1 | Yes | Remote |
+| Ollama | llama3.3 (default), and any local Ollama model | No (local) / Opt | Local/Remote |
 | Free model | Simple fallback, no API key required | No | Local |
 
 ## Framework Adapters
@@ -137,6 +137,8 @@ router.Use(adapter.Middleware())
 ```bash
 go get go.rumenx.com/chatbot
 ```
+
+Build the program that imports this module with **Go 1.26.10+** or **1.27.3+**. Older release lines are end of life and do not receive the October 2026 toolchain fixes. See [SECURITY.md](SECURITY.md).
 
 ### Gin Framework
 
@@ -673,7 +675,7 @@ func main() {
         Model: "openai",
         OpenAI: config.OpenAIConfig{
             APIKey: os.Getenv("OPENAI_API_KEY"),
-            Model:  "gpt-4o",
+            Model:  "gpt-5.4-mini",
         },
         Prompt:   "You are a helpful, friendly chatbot.",
         Language: "en",

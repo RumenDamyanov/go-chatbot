@@ -23,9 +23,11 @@ func NewMetaModel(cfg config.MetaConfig) (*MetaModel, error) {
 	if cfg.APIKey == "" {
 		return nil, fmt.Errorf("meta API key is required")
 	}
-	if cfg.Model == "" {
-		cfg.Model = "llama-3.2-3b-instruct" // Default model
+	model, err := normalizeModel(cfg.Model, "llama-3.3-70b-instruct")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &MetaModel{
 		config: cfg,

@@ -20,9 +20,11 @@ type OllamaModel struct {
 
 // NewOllamaModel creates a new Ollama model instance.
 func NewOllamaModel(cfg config.OllamaConfig) (*OllamaModel, error) {
-	if cfg.Model == "" {
-		cfg.Model = "llama3.2" // Default model
+	model, err := normalizeModel(cfg.Model, "llama3.3")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &OllamaModel{
 		config: cfg,

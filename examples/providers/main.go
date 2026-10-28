@@ -119,7 +119,7 @@ func testOpenAI(ctx context.Context, message, apiKey string) {
 func testAnthropic(ctx context.Context, message, apiKey string) {
 	model, err := models.NewAnthropicModel(config.AnthropicConfig{
 		APIKey: apiKey,
-		Model:  "claude-3-haiku-20240307",
+		Model:  "claude-sonnet-5",
 	})
 	if err != nil {
 		fmt.Printf("   ❌ Failed to create model: %v\n", err)
@@ -141,7 +141,7 @@ func testAnthropic(ctx context.Context, message, apiKey string) {
 func testGemini(ctx context.Context, message, apiKey string) {
 	model, err := models.NewGeminiModel(config.GeminiConfig{
 		APIKey: apiKey,
-		Model:  "gemini-1.5-flash",
+		Model:  "gemini-3.8-flash",
 	})
 	if err != nil {
 		fmt.Printf("   ❌ Failed to create model: %v\n", err)
@@ -163,7 +163,7 @@ func testGemini(ctx context.Context, message, apiKey string) {
 func testXAI(ctx context.Context, message, apiKey string) {
 	model, err := models.NewXAIModel(config.XAIConfig{
 		APIKey: apiKey,
-		Model:  "grok-beta",
+		Model:  "grok-4.6",
 	})
 	if err != nil {
 		fmt.Printf("   ❌ Failed to create model: %v\n", err)
@@ -185,7 +185,7 @@ func testXAI(ctx context.Context, message, apiKey string) {
 func testMeta(ctx context.Context, message, apiKey string) {
 	model, err := models.NewMetaModel(config.MetaConfig{
 		APIKey: apiKey,
-		Model:  "llama-3.2-3b-instruct",
+		Model:  "llama-3.3-70b-instruct",
 	})
 	if err != nil {
 		fmt.Printf("   ❌ Failed to create model: %v\n", err)
@@ -206,7 +206,7 @@ func testMeta(ctx context.Context, message, apiKey string) {
 
 func testOllama(ctx context.Context, message string) {
 	model, err := models.NewOllamaModel(config.OllamaConfig{
-		Model: "llama3.2", // Default model
+		Model: "llama3.3", // Default model
 	})
 	if err != nil {
 		fmt.Printf("   ❌ Failed to create model: %v\n", err)
@@ -221,7 +221,7 @@ func testOllama(ctx context.Context, message string) {
 		fmt.Printf("   ⚠️  Ollama not available: %v\n", err)
 		fmt.Printf("   💡 To use Ollama:\n")
 		fmt.Printf("      1. Install: https://ollama.ai\n")
-		fmt.Printf("      2. Run: ollama pull llama3.2\n")
+		fmt.Printf("      2. Run: ollama pull llama3.3\n")
 		fmt.Printf("      3. Start: ollama serve\n")
 		return
 	}

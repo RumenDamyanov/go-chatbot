@@ -23,9 +23,11 @@ func NewXAIModel(cfg config.XAIConfig) (*XAIModel, error) {
 	if cfg.APIKey == "" {
 		return nil, fmt.Errorf("xAI API key is required")
 	}
-	if cfg.Model == "" {
-		cfg.Model = "grok-beta" // Default model
+	model, err := normalizeModel(cfg.Model, "grok-4.6")
+	if err != nil {
+		return nil, err
 	}
+	cfg.Model = model
 
 	return &XAIModel{
 		config: cfg,

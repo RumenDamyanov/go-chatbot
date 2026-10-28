@@ -54,7 +54,7 @@ func TestNewGeminiModel(t *testing.T) {
 				if tt.config.Model != "" {
 					assert.Equal(t, tt.config.Model, model.Name())
 				} else {
-					assert.Equal(t, "gemini-1.5-flash", model.Name())
+					assert.Equal(t, "gemini-3.8-flash", model.Name())
 				}
 			}
 		})
@@ -132,4 +132,12 @@ func TestGeminiModel_ConversationHistory(t *testing.T) {
 	response, err := model.Ask(ctx, "How are you?", context)
 	assert.Error(t, err)
 	assert.Empty(t, response)
+}
+
+func TestNewGeminiModelRejectsUnsafeName(t *testing.T) {
+	_, err := NewGeminiModel(config.GeminiConfig{
+		APIKey: "test-key",
+		Model:  "../other",
+	})
+	require.Error(t, err)
 }

@@ -57,7 +57,7 @@ Integration with Anthropic's Claude models, known for helpful, harmless, and hon
 ```go
 model, err := models.NewAnthropicModel(config.AnthropicConfig{
     APIKey: "your-api-key",
-    Model:  "claude-3-haiku-20240307", // or "claude-3-sonnet-20240229", etc.
+    Model:  "claude-sonnet-5",
 })
 ```
 
@@ -84,7 +84,7 @@ Integration with Google's Gemini models, offering multimodal AI capabilities.
 ```go
 model, err := models.NewGeminiModel(config.GeminiConfig{
     APIKey: "your-api-key",
-    Model:  "gemini-1.5-flash", // or "gemini-1.5-pro", etc.
+    Model:  "gemini-3.8-flash",
 })
 ```
 
@@ -111,7 +111,7 @@ Integration with xAI's Grok models, designed for wit and real-time information.
 ```go
 model, err := models.NewXAIModel(config.XAIConfig{
     APIKey: "your-api-key",
-    Model:  "grok-beta",
+    Model:  "grok-4.6",
 })
 ```
 
@@ -137,7 +137,7 @@ Integration with Meta's LLaMA models through various providers.
 ```go
 model, err := models.NewMetaModel(config.MetaConfig{
     APIKey: "your-api-key",
-    Model:  "llama-3.2-3b-instruct",
+    Model:  "llama-3.3-70b-instruct",
     Endpoint: "https://your-llama-provider.com", // e.g., Together AI, Replicate
 })
 ```
@@ -163,7 +163,7 @@ Integration with Ollama for running large language models locally.
 **Configuration:**
 ```go
 model, err := models.NewOllamaModel(config.OllamaConfig{
-    Model:    "llama3.2",
+    Model:    "llama3.3",
     Endpoint: "http://localhost:11434", // default
 })
 ```
@@ -174,7 +174,7 @@ model, err := models.NewOllamaModel(config.OllamaConfig{
 curl -fsSL https://ollama.ai/install.sh | sh
 
 # Pull a model
-ollama pull llama3.2
+ollama pull llama3.3
 
 # Start Ollama server
 ollama serve
